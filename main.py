@@ -1,107 +1,170 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QLabel, QWidget,
-                             QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton)
+                             QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QSizePolicy, QStackedLayout)
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt,  QSize
 
 class Calculator(QMainWindow):
     def __init__(self):
         super().__init__()
         ##Customizing Window
         self.setWindowTitle("Calculator")
-        self.setGeometry(0, 0, 650, 650) #setGeometry(x, y, width, height)
+        self.setGeometry(0, 0, 620, 650) #setGeometry(x, y, width, height)
         #Setting Icon
-        self.setWindowIcon(QIcon("Icon.png"))
-        #Creating Variable/elements
-        self.button = QPushButton("Click Me!", self)
+        self.setWindowIcon(QIcon("images/icon.png"))
+
+        #Button sizes
+        self.numButtonWidth = 80
+        self.numButtonHeight = 89
+
+        self.symButtonWidth = 80
+        self.symButtonHeight = 80
+
+        #Creating the application widget (for easy layout structuring)
+        #self.appWidget = QWidget(self)
+
+        #Creating button container
+        self.buttonContainer = QWidget(self)
+
+        #Creating buttons
+        self.plusButton = QPushButton(self.buttonContainer)
+        self.minusButton = QPushButton(self.buttonContainer)
+        self.muliplicationButton = QPushButton(self.buttonContainer)
+        self.divisionButton = QPushButton(self.buttonContainer)
+        self.decimalButton = QPushButton(self.buttonContainer)
+
+        self.button0 = QPushButton(self.buttonContainer)
+        self.button1 = QPushButton(self.buttonContainer)
+        self.button2 = QPushButton(self.buttonContainer)
+        self.button3 = QPushButton(self.buttonContainer)
+        self.button4 = QPushButton(self.buttonContainer)
+        self.button5 = QPushButton(self.buttonContainer)
+        self.button6 = QPushButton(self.buttonContainer)
+        self.button7 = QPushButton(self.buttonContainer)
+        self.button8 = QPushButton(self.buttonContainer)
+        self.button9 = QPushButton(self.buttonContainer)
+
+        self.clearButton = QPushButton(self.buttonContainer)
+        self.backButton = QPushButton(self.buttonContainer)
+        self.equalsButton = QPushButton(self.buttonContainer)
+
         #Initializing GUI
         self.initGUI()
 
-        #Creating text
-        #label = QLabel("Hello World!", self)
-        #label.setFont(QFont("Arial", 40))
-        #Setting position of the text(label)
-        #label.setGeometry(0, 0, 500, 100)
-        #label.setStyleSheet("color: blue;"
-                           # "background-color: pink;" 
-                           # "font-weight: bold;")
-        #Setting text(label) alignment
-        #label.setAlignment(Qt.AlignTop) #Vertically top
-        #label.setAlignment(Qt.AlignBottom) #Vertically bottom
-        #label.setAlignment(Qt.AlignVCenter) #Vertically Center(default)
-
-        #label.setAlignment(Qt.AlignRight) #Horizontally right
-        #label.setAlignment(Qt.AlignLeft)   #Horizontally left(default)
-        #label.setAlignment(Qt.AlignHCenter) #Horizontally center
-
-        #Combo postioning/alignment
-        #label.setAlignment(Qt.AlignRight | Qt.AlignTop)
-
-        #Using images
-        #image = QLabel(self)
-        #image.setGeometry(0, 0, 100, 150)
-
-        #pixmap = QPixmap("Icon.png")
-        #image.setPixmap(pixmap)
-        #image.setScaledContents(True) #Scales image to take up the entire width and height to the container
-
-        #Aligning/position
-        #image.setGeometry((self.width() - image.width()) // 2, 0, image.width(), image.height())
-
+        
     def initGUI(self):
-        #Setting central widget
-        #central_widget = QWidget()
-        #self.setCentralWidget(central_widget)
 
-        #Creating items
-        #label1 = QLabel("#1", self)
-        #label2 = QLabel("#2", self)
-        #label3 = QLabel("#3", self)
-        #label4 = QLabel("#4", self)
+        #Setting window background
+        self.background = QLabel(self)
+        self.background.setScaledContents(True)
+        self.background.setPixmap(QPixmap("images/background.png"))
+        self.background.setGeometry(0, 0, self.width(), self.height())
 
-        #label1.setStyleSheet("background-color: orange;")
-        #label2.setStyleSheet("background-color: pink;")
-        #label3.setStyleSheet("background-color: blue;")
-        #label4.setStyleSheet("background-color: yellow;")
+        #Setting the background/layout layout
+        baseLayout = QVBoxLayout(self.background)
 
-        #Vertical Layout Manager
-        #vbox = QVBoxLayout()  for Horizantal just replace with QHBoxLayout()
+        #Creating display box
+        self.displayBox = QLabel(self)
+        self.displayBox.setScaledContents(True)
+        self.displayBox.setPixmap(QPixmap("images/displayBox.png"))
+        self.displayBox.setFixedHeight(120)
 
-        #vbox.addWidget(label1)
-        #vbox.addWidget(label2)
-        #vbox.addWidget(label3)
-        #vbox.addWidget(label4)
+        #Placing displaybox into it's own layout segment
+        displayBoxLayout = QHBoxLayout()
+        displayBoxLayout.addSpacing(20)
+        displayBoxLayout.addWidget(self.displayBox)
+        displayBoxLayout.addSpacing(20)
 
-        #central_widget.setLayout(vbox)
+        #Adding displaybox segment to base layout
+        baseLayout.addStretch(1)
+        baseLayout.addLayout(displayBoxLayout)
 
-        #Grid Layout
-        #grid = QGridLayout() 
+        #Setting button container and button container background
+        self.buttonContainerBackground = QLabel(self)
+        self.buttonContainerBackground.setScaledContents(True)
+        self.buttonContainerBackground.setPixmap(QPixmap("images/buttonContainer.png"))
 
-        #grid.addWidget(label1, 0, 0)
-        #grid.addWidget(label2, 0, 1)
-        #grid.addWidget(label3, 1, 0)
-        #grid.addWidget(label4, 2, 1)
+        #Styling Number Buttons
+        self.styleButton(self.plusButton, "images/plus.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.minusButton, "images/minus.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.muliplicationButton, "images/multiplication.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.divisionButton, "images/division.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.decimalButton, "images/decimal.png", self.symButtonWidth, self.symButtonHeight)
 
-        #central_widget.setLayout(grid)
+        self.styleButton(self.button0, "images/0.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button1, "images/1.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button2, "images/2.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button3, "images/3.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button4, "images/4.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button5, "images/5.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button6, "images/6.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button7, "images/7.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button8, "images/8.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button9, "images/9.png", self.numButtonWidth, self.numButtonHeight)
 
-        #Using Buttons
-        self.button.setGeometry(150, 200, 200, 100)
-        self.button.setStyleSheet("font-size: 30px;")
-        self.button.clicked.connect(self.on_click)
+        self.styleButton(self.clearButton, "images/clear.png", int(3 * self.numButtonWidth), self.numButtonHeight)
+        self.styleButton(self.backButton, "images/backArrow.png", int(1.2 * self.numButtonWidth), self.numButtonHeight)
+        self.styleButton(self.equalsButton, "images/equalSign.png", self.numButtonWidth, self.numButtonHeight)
 
-    def on_click(self):
-        print("Button clicked!")
-        self.button.setText("Clicked!")
-        self.button.setDisabled(True)
+        #Button Grid Layout (button rows 1-3)
+        buttonGrid = QGridLayout()
 
+        buttonGrid.addWidget(self.plusButton, 0, 0)
+        buttonGrid.addWidget(self.minusButton, 0, 1)
+        buttonGrid.addWidget(self.muliplicationButton, 0, 2)
+        buttonGrid.addWidget(self.divisionButton, 0, 3)
+        buttonGrid.addWidget(self.decimalButton, 0, 4)
+    
+        buttonGrid.addWidget(self.button0, 2, 0)
+        buttonGrid.addWidget(self.button1, 1, 0)
+        buttonGrid.addWidget(self.button2, 1, 1)
+        buttonGrid.addWidget(self.button3, 1, 2)
+        buttonGrid.addWidget(self.button4, 1, 3)
+        buttonGrid.addWidget(self.button5, 1, 4)
+        buttonGrid.addWidget(self.button6, 2, 1)
+        buttonGrid.addWidget(self.button7, 2, 2)
+        buttonGrid.addWidget(self.button8, 2, 3)
+        buttonGrid.addWidget(self.button9, 2, 4)
+        buttonGrid.addWidget(self.equalsButton, 3, 4)
 
+        #Sublayout for bottom row of buttons
+        bottomRow = QHBoxLayout()
+        bottomRow.addWidget(self.clearButton)
+        bottomRow.addWidget(self.backButton)
 
+        buttonGrid.addLayout(bottomRow, 3, 0, 1, 4)
 
+        #Button layout styling
+        buttonGrid.setContentsMargins(15, 15, 10, 10)
+        buttonGrid.setSpacing(4)
+        self.buttonContainer.setLayout(buttonGrid)
 
+        #Placing Button container into it's own layout segment
+        buttonSegmentLayout = QHBoxLayout()
+        buttonSegmentLayout.addWidget(self.buttonContainer)
+
+        #Adding button section segment to base layout
+        baseLayout.addStretch(1)
+        baseLayout.addLayout(buttonSegmentLayout)
+        baseLayout.addStretch(1)
 
         
+        
+        
 
+    def styleButton(self, button, image, width, height):
+        button.setFixedSize(width, height)
+        pixmap = QPixmap(image)
+        icon = QIcon(pixmap)
+        button.setIcon(icon)
+        button.setIconSize(QSize(width, height))
+        button.raise_()
+
+    
+
+        
+    
 def main():
     app = QApplication(sys.argv)
     ##Setting up basic window/app
