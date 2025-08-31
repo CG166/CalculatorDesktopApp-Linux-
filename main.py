@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QLabel, QWidget,
-                             QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QSizePolicy, QStackedLayout)
+                             QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QSizePolicy, QStackedLayout, QLineEdit)
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtCore import Qt,  QSize
@@ -10,7 +10,7 @@ class Calculator(QMainWindow):
         super().__init__()
         ##Customizing Window
         self.setWindowTitle("Calculator")
-        self.setGeometry(0, 0, 620, 650) #setGeometry(x, y, width, height)
+        self.setGeometry(0, 0, 600, 655) #setGeometry(x, y, width, height)
         #Setting Icon
         self.setWindowIcon(QIcon("images/icon.png"))
 
@@ -20,9 +20,6 @@ class Calculator(QMainWindow):
 
         self.symButtonWidth = 80
         self.symButtonHeight = 80
-
-        #Creating the application widget (for easy layout structuring)
-        #self.appWidget = QWidget(self)
 
         #Creating button container
         self.buttonContainer = QWidget(self)
@@ -64,11 +61,21 @@ class Calculator(QMainWindow):
         #Setting the background/layout layout
         baseLayout = QVBoxLayout(self.background)
 
-        #Creating display box
-        self.displayBox = QLabel(self)
-        self.displayBox.setScaledContents(True)
-        self.displayBox.setPixmap(QPixmap("images/displayBox.png"))
-        self.displayBox.setFixedHeight(120)
+        #Creating display box         
+        self.displayBox = QLineEdit()
+        self.displayBox.setPlaceholderText("Enter text here...")
+        self.displayBox.setStyleSheet("""
+            QLineEdit {
+                color: #51b6c3;
+                background-color: transparent;
+                font-size: 75px;
+                font-family: 'Comic Sans MS', cursive;
+                border: none;
+                font-weight: bold;
+             }
+        """)
+
+
 
         #Placing displaybox into it's own layout segment
         displayBoxLayout = QHBoxLayout()
@@ -80,10 +87,6 @@ class Calculator(QMainWindow):
         baseLayout.addStretch(1)
         baseLayout.addLayout(displayBoxLayout)
 
-        #Setting button container and button container background
-        self.buttonContainerBackground = QLabel(self)
-        self.buttonContainerBackground.setScaledContents(True)
-        self.buttonContainerBackground.setPixmap(QPixmap("images/buttonContainer.png"))
 
         #Styling Number Buttons
         self.styleButton(self.plusButton, "images/plus.png", self.symButtonWidth, self.symButtonHeight)
@@ -149,7 +152,6 @@ class Calculator(QMainWindow):
         baseLayout.addLayout(buttonSegmentLayout)
         baseLayout.addStretch(1)
 
-        
         
         
 
