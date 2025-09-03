@@ -63,6 +63,7 @@ class Calculator(QMainWindow):
 
         #Creating display box         
         self.displayBox = QLineEdit()
+        self.displayBox.setAlignment(Qt.AlignRight)
         self.displayBox.setPlaceholderText("Enter text here...")
         self.displayBox.setStyleSheet("""
             QLineEdit {
@@ -79,9 +80,9 @@ class Calculator(QMainWindow):
 
         #Placing displaybox into it's own layout segment
         displayBoxLayout = QHBoxLayout()
-        displayBoxLayout.addSpacing(20)
+        displayBoxLayout.addSpacing(50)
         displayBoxLayout.addWidget(self.displayBox)
-        displayBoxLayout.addSpacing(20)
+        displayBoxLayout.addSpacing(50)
 
         #Adding displaybox segment to base layout
         baseLayout.addStretch(1)
@@ -139,8 +140,8 @@ class Calculator(QMainWindow):
         buttonGrid.addLayout(bottomRow, 3, 0, 1, 4)
 
         #Button layout styling
-        buttonGrid.setContentsMargins(15, 15, 10, 10)
-        buttonGrid.setSpacing(4)
+        buttonGrid.setContentsMargins(25, 25, 28, 15)
+        buttonGrid.setSpacing(15)
         self.buttonContainer.setLayout(buttonGrid)
 
         #Placing Button container into it's own layout segment
