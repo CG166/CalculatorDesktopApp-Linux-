@@ -46,8 +46,14 @@ class Calculator(QMainWindow):
         self.backButton = QPushButton(self.buttonContainer)
         self.equalsButton = QPushButton(self.buttonContainer)
 
+        #Functional Variables
+        self.queue = []
+        self.displayText = ""
+        
         #Initializing GUI
         self.initGUI()
+
+
 
         
     def initGUI(self):
@@ -64,7 +70,7 @@ class Calculator(QMainWindow):
         #Creating display box         
         self.displayBox = QLineEdit()
         self.displayBox.setAlignment(Qt.AlignRight)
-        self.displayBox.setPlaceholderText("Enter text here...")
+        self.displayBox.setReadOnly(True)
         self.displayBox.setStyleSheet("""
             QLineEdit {
                 color: #51b6c3;
@@ -76,8 +82,6 @@ class Calculator(QMainWindow):
              }
         """)
 
-
-
         #Placing displaybox into it's own layout segment
         displayBoxLayout = QHBoxLayout()
         displayBoxLayout.addSpacing(50)
@@ -87,7 +91,6 @@ class Calculator(QMainWindow):
         #Adding displaybox segment to base layout
         baseLayout.addStretch(1)
         baseLayout.addLayout(displayBoxLayout)
-
 
         #Styling Number Buttons
         self.styleButton(self.plusButton, "images/plus.png", self.symButtonWidth, self.symButtonHeight)
@@ -153,8 +156,9 @@ class Calculator(QMainWindow):
         baseLayout.addLayout(buttonSegmentLayout)
         baseLayout.addStretch(1)
 
-        
-        
+        #Functionality Section
+        self.connectButtons()
+
 
     def styleButton(self, button, image, width, height):
         button.setFixedSize(width, height)
@@ -163,6 +167,49 @@ class Calculator(QMainWindow):
         button.setIcon(icon)
         button.setIconSize(QSize(width, height))
         button.raise_()
+
+    def connectButtons(self):
+        btnNames = ['button0', 'button1', 'button2', 'button3', 'button4', 'button5', 'button6', 'button7', 'button8', 'button9', 
+        'plusButton', 'minusButton', 'muliplicationButton', 'divisionButton', 'decimalButton']
+
+        btnContent = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/']
+        
+        for btnName, char in zip(btnNames, btnContent):
+            button = getattr(self, btnName)
+            button.clicked.connect(lambda _, c=char: self.addChar(c))
+
+        self.clearButton.clicked.connect(self.clear)
+        self.backButton.clicked.connect(self.backSpace)
+        self.equalsButton.clicked.connect(self.calculate)
+
+    def addChar(self, c):
+        self.displayText += c
+        self.displayBox.setText(self.displayText)
+
+    def clear(self):
+        self.displayText = []
+        self.displayBox.setText(self.displayText)
+
+    def backSpace(self):
+        self.displayText = self.displayText[:-1]
+        self.displayBox.setText(self.displayText)
+
+    def calculate(self):
+        self.tokenize()
+        print(self.queue)
+
+    def tokenize(self):
+        token = ""
+        for c in self.displayText:
+            if c == '+' or c == '-' or c == '*' or c == '/':
+                token = ""
+                token += c
+
+            else:
+                token += c
+            self.queue.append(token)
+            
+
 
     
 
