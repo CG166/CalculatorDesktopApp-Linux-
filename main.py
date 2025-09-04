@@ -172,7 +172,7 @@ class Calculator(QMainWindow):
         btnNames = ['button0', 'button1', 'button2', 'button3', 'button4', 'button5', 'button6', 'button7', 'button8', 'button9', 
         'plusButton', 'minusButton', 'muliplicationButton', 'divisionButton', 'decimalButton']
 
-        btnContent = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/']
+        btnContent = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '.']
         
         for btnName, char in zip(btnNames, btnContent):
             button = getattr(self, btnName)
@@ -187,7 +187,7 @@ class Calculator(QMainWindow):
         self.displayBox.setText(self.displayText)
 
     def clear(self):
-        self.displayText = []
+        self.displayText = ""
         self.displayBox.setText(self.displayText)
 
     def backSpace(self):
@@ -206,7 +206,7 @@ class Calculator(QMainWindow):
                 token += c
 
             else:
-                token += c
+                token = c
             self.queue.append(token)
             
 
