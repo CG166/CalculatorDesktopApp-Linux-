@@ -1,43 +1,55 @@
 import sys
 
 #Functions
-def multiplication(list):
+
+def evaluate(list):
     for index, token in enumerate(list):
         if token == '*':
             product = list[index-1] * list[index+1]
             list[index-1] = product
             print(list[index])
             list.pop(index)
-            print("Popped: {list[index]}")
-            list.pop(index+1)
-            
-    return list
+            print(list[index])
+            list.pop(index)
 
-def division(list):
     for index, token in enumerate(list):
         if token == '/':
-            product = list[index-1] / list[index+2]
+            product = list[index-1] / list[index+1]
+            list[index-1] = product
+            print(list[index])
+            list.pop(index)
+            print(list[index])
+            list.pop(index)
 
-def addition(list):
     for index, token in enumerate(list):
         if token == '+':
-            product = list[index-1] + list[index+2]
-
-def subtraction(list):
+            product = list[index-1] + list[index+1]
+            list[index-1] = product
+            print(list[index])
+            list.pop(index)
+            print(list[index])
+            list.pop(index)
+    
     for index, token in enumerate(list):
         if token == '-':
-            product = list[index-1] - list[index+2]
+            product = list[index-1] - list[index+1]
+            list[index-1] = product
+            print(list[index])
+            list.pop(index)
+            print(list[index])
+            list.pop(index)
 
-
-
+    answer = str(list[0])
+            
+    return answer
 
 
 def main():
     
-    equation = [-2, 4, 2.4, '*', 10, "/", 2]
+    equation = [-2, '+', 4, '-', 2.4, '*', 10, "/", 2]
     print(equation)
 
-    newList = multiplication(equation)
+    newList = evaluate(equation)
     print(newList)
     
 

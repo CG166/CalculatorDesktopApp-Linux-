@@ -5,6 +5,8 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtCore import Qt,  QSize
 
+import functions
+
 class Calculator(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -183,7 +185,12 @@ class Calculator(QMainWindow):
         self.equalsButton.clicked.connect(self.calculate)
 
     def addChar(self, c):
-        self.displayText += c
+        ##figure out how to avoid being able to input - more that twice
+        if self.isOp(c) and self.isOp(self.displayText[-1]) and self.isOp(self.displayText[-2]) and c != '-' :
+            self.displayText = self.displayText[:-1]
+            self.displayText += c
+        else:
+            self.displayText += c
         self.displayBox.setText(self.displayText)
 
     def clear(self):
@@ -197,17 +204,37 @@ class Calculator(QMainWindow):
     def calculate(self):
         self.tokenize()
         print(self.queue)
+        self.displayText = functions.evaluate(self.queue)
+        self.displayBox.setText(self.displayText)
 
     def tokenize(self):
+        print(self.displayText)
         token = ""
+        prev = ''
         for c in self.displayText:
-            if c == '+' or c == '-' or c == '*' or c == '/':
+            if self.isOp(c) and self.isOp(prev):
+                self.queue.pop()
                 token = ""
                 token += c
-
+            elif self.isOp(c):
+                token = ""
+                token += c
             else:
                 token = c
-            self.queue.append(token)
+            
+            if not self.isOp(token):
+                self.queue.append(float(token))
+        
+            else:
+                self.queue.append(token)
+            prev = c
+        print(self.queue)
+
+    def isOp(self, c):
+        if c == '+' or c == '-' or c == '*' or c == '/':
+            return True
+        else:
+            return False
             
 
 
