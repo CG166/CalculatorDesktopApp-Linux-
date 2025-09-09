@@ -54,10 +54,7 @@ class Calculator(QMainWindow):
         
         #Initializing GUI
         self.initGUI()
-
-
-
-        
+    
     def initGUI(self):
 
         #Setting window background
@@ -112,7 +109,7 @@ class Calculator(QMainWindow):
         self.styleButton(self.button8, "images/8.png", self.numButtonWidth, self.numButtonHeight)
         self.styleButton(self.button9, "images/9.png", self.numButtonWidth, self.numButtonHeight)
 
-        self.styleButton(self.clearButton, "images/clear.png", int(3 * self.numButtonWidth), self.numButtonHeight)
+        self.styleButton(self.clearButton, "images/clear.png", int(3 * self.numButtonWidth), self.numButtonHeight-1)
         self.styleButton(self.backButton, "images/backArrow.png", int(1.2 * self.numButtonWidth), self.numButtonHeight)
         self.styleButton(self.equalsButton, "images/equalSign.png", self.numButtonWidth, self.numButtonHeight)
 
@@ -161,7 +158,6 @@ class Calculator(QMainWindow):
         #Functionality Section
         self.connectButtons()
 
-
     def styleButton(self, button, image, width, height):
         button.setFixedSize(width, height)
         pixmap = QPixmap(image)
@@ -189,7 +185,7 @@ class Calculator(QMainWindow):
         if self.displayText:
             last_char = self.displayText[-1]
         else:
-            if self.isOp(c) and c != '-':
+            if self.isOp(c) and c != '-' or c == '.':
                 return
             last_char = None
 
@@ -210,15 +206,14 @@ class Calculator(QMainWindow):
             self.displayText += c
             self.displayBox.setText(self.displayText)
 
-
     def clear(self):
         self.displayText = ""
         self.queue = []
         self.displayBox.setText(self.displayText)
         
     def backSpace(self):
+        self.queue = []
         self.displayText = self.displayText[:-1]
-        #self.queue = []
         self.displayBox.setText(self.displayText)
 
     def calculate(self):
@@ -232,7 +227,7 @@ class Calculator(QMainWindow):
         token = ""
         prev = ''
         for c in self.displayText:
-            if not self.isOp(c) and c!= self.displayText[-1] or c == self.displayText[0] or c == '-' and self.isOp(prev):
+            if not self.isOp(c) and c!= self.displayText[-1] or c == self.displayText[0] or c == '-' and self.isOp(prev) or c == -1 and token[-1] == '.':
                 token += c
             elif self.isOp(c):
                 self.queue.append(float(token))
@@ -245,8 +240,6 @@ class Calculator(QMainWindow):
                 token += c
                 print(f"Last number {token} to be appended to list {self.queue}")
                 self.queue.append(float(token))
-                
-
 
     def isOp(self, c):
         if c == '+' or c == '-' or c == '*' or c == '/':
@@ -254,10 +247,7 @@ class Calculator(QMainWindow):
         else:
             return False
             
-
-
-
-        
+       
     
 def main():
     app = QApplication(sys.argv)
