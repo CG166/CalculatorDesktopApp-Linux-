@@ -50,7 +50,7 @@ def evaluate(list):
     print(f"Final form of list after all evaluation: {list}")
     print(list)
     print(f"Final Answer before string conversion: {list[0]}")
-    answer = str(list[0])
+    answer = str(list[0])[:13]
     print(f"The final answer is: {answer}")
             
     return answer

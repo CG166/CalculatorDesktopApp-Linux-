@@ -70,6 +70,7 @@ class Calculator(QMainWindow):
         self.displayBox = QLineEdit()
         self.displayBox.setAlignment(Qt.AlignRight)
         self.displayBox.setReadOnly(True)
+        self.displayBox.setCursorPosition(len(self.displayText))
         self.displayBox.setStyleSheet("""
             QLineEdit {
                 color: #51b6c3;
@@ -198,6 +199,8 @@ class Calculator(QMainWindow):
             self.displayBox.setText(self.displayText)
         elif c == '+' and self.isOp(last_char):
             pass
+        elif c == '.' and last_char == '.':
+            pass
         elif self.isOp(c) and self.isOp(last_char):
             self.displayText = self.displayText[:-1]
             self.displayText  += c
@@ -225,10 +228,9 @@ class Calculator(QMainWindow):
     def tokenize(self):
         print(f"Display text before tokenization {self.displayText}")
         token = ""
-        prev = ''
         textEnd = len(self.displayText) - 1
         for i, c in enumerate(self.displayText):
-            if (not self.isOp(c) and i != textEnd) or (i == 0) or (c == '-' and self.isOp(self.displayText[i-1]) and self.displayText[i-1] != '.'):
+            if (not self.isOp(c) and i != textEnd) or (i == 0) or (c == '-' and self.isOp(self.displayText[i-1]) and self.displayText[i-1] != '.') :
                 token += c
             elif self.isOp(c):
                 self.queue.append(float(token))
@@ -236,7 +238,6 @@ class Calculator(QMainWindow):
                 self.queue.append(c)
                 print(f"Operation {c} appended to list. State of queue is {self.queue}")
                 token = ""
-                prev = self.queue[-1]
             elif not self.isOp(c) and i == textEnd:
                 token += c
                 print(f"Last number {token} to be appended to list {self.queue}")
