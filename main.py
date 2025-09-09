@@ -189,13 +189,16 @@ class Calculator(QMainWindow):
         if self.displayText:
             last_char = self.displayText[-1]
         else:
-            if self.isOp(c):
+            if self.isOp(c) and c != '-':
                 return
             last_char = None
 
         if c == '-' and last_char == '-':
             self.displayText = self.displayText[:-1]
             self.displayText  += '+'
+            self.displayBox.setText(self.displayText)
+        elif c == '-' and last_char != '+' and self.isOp(last_char):
+            self.displayText += c
             self.displayBox.setText(self.displayText)
         elif c == '+' and self.isOp(last_char):
             pass
@@ -206,7 +209,6 @@ class Calculator(QMainWindow):
         else:
             self.displayText += c
             self.displayBox.setText(self.displayText)
-
 
 
     def clear(self):
@@ -228,15 +230,25 @@ class Calculator(QMainWindow):
         print(f"Display text before tokenization {self.displayText}")
         token = ""
         for c in self.displayText:
-            if not self.isOp(c) and c!= self.displayText[-1]:
+            
+            #if self.queue:
+                #prev = self.queue[-1]
+            #else:
+                #prev = ''
+
+            if not self.isOp(c) and c!= self.displayText[-1] or c == self.displayText[0]:
                 token += c
             elif self.isOp(c):
                 self.queue.append(float(token))
+                print(f"Number {token} appended to list. State of queue is {self.queue}")
                 self.queue.append(c)
+                print(f"Operation {c} appended to list. State of queue is {self.queue}")
                 token = ""
             elif not self.isOp(c) and c== self.displayText[-1]:
                 token += c
+                print(f"Last number {token} to be appended to list {self.queue}")
                 self.queue.append(float(token))
+                
 
 
     def isOp(self, c):
