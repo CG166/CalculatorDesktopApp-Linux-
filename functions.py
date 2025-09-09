@@ -6,54 +6,66 @@ def evaluate(list):
     for index, token in enumerate(list):
         if token == '*':
             product = list[index-1] * list[index+1]
+            print(list[index-1])
             list[index-1] = product
-            print(list[index])
+            print(" multiplied by ")
             list.pop(index)
             print(list[index])
             list.pop(index)
-
+            print(f"The product is: {list[index-1]}\n")
+            
     for index, token in enumerate(list):
         if token == '/':
             product = list[index-1] / list[index+1]
+            print(list[index-1])
             list[index-1] = product
-            print(list[index])
+            print(" divided by ")
             list.pop(index)
             print(list[index])
             list.pop(index)
+            print(f"The product is: {list[index-1]}\n")
 
     for index, token in enumerate(list):
         if token == '+':
             product = list[index-1] + list[index+1]
+            print(list[index-1])
             list[index-1] = product
-            print(list[index])
+            print(" added to ")
             list.pop(index)
             print(list[index])
             list.pop(index)
+            print(f"The product is: {list[index-1]}\n")
     
     for index, token in enumerate(list):
         if token == '-':
             product = list[index-1] - list[index+1]
+            print(list[index-1])
             list[index-1] = product
-            print(list[index])
+            print(" subtracted by ")
             list.pop(index)
             print(list[index])
             list.pop(index)
+            print(f"The product is: {list[index-1]}\n")
 
+    print(f"Final form of list after all evaluation: {list}")
+    print(list)
+    print(f"Final Answer before string conversion: {list[0]}")
     answer = str(list[0])
+    print(f"The final answer is: {answer}")
             
     return answer
 
 
-def main():
+#def main():
     
-    equation = [-2, '+', 4, '-', 2.4, '*', 10, "/", 2]
-    print(equation)
+    #equation = [-2, '+', 4, '-', 2.4, '*', 10, "/", 2]
+    #print(equation)
 
-    newList = evaluate(equation)
-    print(newList)
+    #newList = evaluate(equation)
+    #print(newList)
     
 
 
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+    #main()

@@ -185,50 +185,59 @@ class Calculator(QMainWindow):
         self.equalsButton.clicked.connect(self.calculate)
 
     def addChar(self, c):
-        ##figure out how to avoid being able to input - more that twice
-        if self.isOp(c) and self.isOp(self.displayText[-1]) and self.isOp(self.displayText[-2]) and c != '-' :
+        
+        if self.displayText:
+            last_char = self.displayText[-1]
+        else:
+            if self.isOp(c):
+                return
+            last_char = None
+
+        if c == '-' and last_char == '-':
             self.displayText = self.displayText[:-1]
-            self.displayText += c
+            self.displayText  += '+'
+            self.displayBox.setText(self.displayText)
+        elif c == '+' and self.isOp(last_char):
+            pass
+        elif self.isOp(c) and self.isOp(last_char):
+            self.displayText = self.displayText[:-1]
+            self.displayText  += c
+            self.displayBox.setText(self.displayText)
         else:
             self.displayText += c
-        self.displayBox.setText(self.displayText)
+            self.displayBox.setText(self.displayText)
+
+
 
     def clear(self):
         self.displayText = ""
+        self.queue = []
         self.displayBox.setText(self.displayText)
-
+        
     def backSpace(self):
         self.displayText = self.displayText[:-1]
         self.displayBox.setText(self.displayText)
 
     def calculate(self):
         self.tokenize()
-        print(self.queue)
+        print(f"State of queue before it is input into the evaluation function is {self.queue}")
         self.displayText = functions.evaluate(self.queue)
         self.displayBox.setText(self.displayText)
 
     def tokenize(self):
-        print(self.displayText)
+        print(f"Display text before tokenization {self.displayText}")
         token = ""
-        prev = ''
         for c in self.displayText:
-            if self.isOp(c) and self.isOp(prev):
-                self.queue.pop()
-                token = ""
+            if not self.isOp(c) and c!= self.displayText[-1]:
                 token += c
             elif self.isOp(c):
-                token = ""
-                token += c
-            else:
-                token = c
-            
-            if not self.isOp(token):
                 self.queue.append(float(token))
-        
-            else:
-                self.queue.append(token)
-            prev = c
-        print(self.queue)
+                self.queue.append(c)
+                token = ""
+            elif not self.isOp(c) and c== self.displayText[-1]:
+                token += c
+                self.queue.append(float(token))
+
 
     def isOp(self, c):
         if c == '+' or c == '-' or c == '*' or c == '/':
@@ -238,7 +247,6 @@ class Calculator(QMainWindow):
             
 
 
-    
 
         
     
