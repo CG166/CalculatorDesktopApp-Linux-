@@ -218,6 +218,7 @@ class Calculator(QMainWindow):
         
     def backSpace(self):
         self.displayText = self.displayText[:-1]
+        #self.queue = []
         self.displayBox.setText(self.displayText)
 
     def calculate(self):
@@ -229,14 +230,9 @@ class Calculator(QMainWindow):
     def tokenize(self):
         print(f"Display text before tokenization {self.displayText}")
         token = ""
+        prev = ''
         for c in self.displayText:
-            
-            #if self.queue:
-                #prev = self.queue[-1]
-            #else:
-                #prev = ''
-
-            if not self.isOp(c) and c!= self.displayText[-1] or c == self.displayText[0]:
+            if not self.isOp(c) and c!= self.displayText[-1] or c == self.displayText[0] or c == '-' and self.isOp(prev):
                 token += c
             elif self.isOp(c):
                 self.queue.append(float(token))
@@ -244,6 +240,7 @@ class Calculator(QMainWindow):
                 self.queue.append(c)
                 print(f"Operation {c} appended to list. State of queue is {self.queue}")
                 token = ""
+                prev = self.queue[-1]
             elif not self.isOp(c) and c== self.displayText[-1]:
                 token += c
                 print(f"Last number {token} to be appended to list {self.queue}")
