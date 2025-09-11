@@ -1,0 +1,24 @@
+<RCC>
+  <qresource prefix="/images">
+    <file>images/icon.png</file>
+    <file>images/background.png</file>
+    <file>images/plus.png</file>
+    <file>images/minus.png</file>
+    <file>images/multiplication.png</file>
+    <file>images/division.png</file>
+    <file>images/decimal.png</file>
+    <file>images/0.png</file>
+    <file>images/1.png</file>
+    <file>images/2.png</file>
+    <file>images/3.png</file>
+    <file>images/4.png</file>
+    <file>images/5.png</file>
+    <file>images/6.png</file>
+    <file>images/7.png</file>
+    <file>images/8.png</file>
+    <file>images/9.png</file>
+    <file>images/clear.png</file>
+    <file>images/backArrow.png</file>
+    <file>images/equalSign.png</file>
+  </qresource>
+</RCC>

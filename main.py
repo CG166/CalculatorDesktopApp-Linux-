@@ -6,6 +6,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt,  QSize
 
 import functions
+import resources_rc
 
 class Calculator(QMainWindow):
     def __init__(self):
@@ -14,7 +15,7 @@ class Calculator(QMainWindow):
         self.setWindowTitle("Calculator")
         self.setGeometry(0, 0, 600, 655) #setGeometry(x, y, width, height)
         #Setting Icon
-        self.setWindowIcon(QIcon("images/icon.png"))
+        self.setWindowIcon(QIcon(":/images/icon.png"))
 
         #Button sizes
         self.numButtonWidth = 80
@@ -60,7 +61,7 @@ class Calculator(QMainWindow):
         #Setting window background
         self.background = QLabel(self)
         self.background.setScaledContents(True)
-        self.background.setPixmap(QPixmap("images/background.png"))
+        self.background.setPixmap(QPixmap(":/images/background.png"))
         self.background.setGeometry(0, 0, self.width(), self.height())
 
         #Setting the background/layout layout
@@ -93,26 +94,26 @@ class Calculator(QMainWindow):
         baseLayout.addLayout(displayBoxLayout)
 
         #Styling Number Buttons
-        self.styleButton(self.plusButton, "images/plus.png", self.symButtonWidth, self.symButtonHeight)
-        self.styleButton(self.minusButton, "images/minus.png", self.symButtonWidth, self.symButtonHeight)
-        self.styleButton(self.muliplicationButton, "images/multiplication.png", self.symButtonWidth, self.symButtonHeight)
-        self.styleButton(self.divisionButton, "images/division.png", self.symButtonWidth, self.symButtonHeight)
-        self.styleButton(self.decimalButton, "images/decimal.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.plusButton, ":/images/plus.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.minusButton, ":/images/minus.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.muliplicationButton, ":/images/multiplication.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.divisionButton, ":/images/division.png", self.symButtonWidth, self.symButtonHeight)
+        self.styleButton(self.decimalButton, ":/images/decimal.png", self.symButtonWidth, self.symButtonHeight)
 
-        self.styleButton(self.button0, "images/0.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button1, "images/1.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button2, "images/2.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button3, "images/3.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button4, "images/4.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button5, "images/5.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button6, "images/6.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button7, "images/7.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button8, "images/8.png", self.numButtonWidth, self.numButtonHeight)
-        self.styleButton(self.button9, "images/9.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button0, ":/images/0.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button1, ":/images/1.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button2, ":/images/2.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button3, ":/images/3.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button4, ":/images/4.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button5, ":/images/5.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button6, ":/images/6.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button7, ":/images/7.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button8, ":/images/8.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.button9, ":/images/9.png", self.numButtonWidth, self.numButtonHeight)
 
-        self.styleButton(self.clearButton, "images/clear.png", int(3 * self.numButtonWidth), self.numButtonHeight-1)
-        self.styleButton(self.backButton, "images/backArrow.png", int(1.2 * self.numButtonWidth), self.numButtonHeight)
-        self.styleButton(self.equalsButton, "images/equalSign.png", self.numButtonWidth, self.numButtonHeight)
+        self.styleButton(self.clearButton, ":/images/clear.png", int(3 * self.numButtonWidth), self.numButtonHeight-1)
+        self.styleButton(self.backButton, ":/images/backArrow.png", int(1.2 * self.numButtonWidth), self.numButtonHeight)
+        self.styleButton(self.equalsButton, ":/images/equalSign.png", self.numButtonWidth, self.numButtonHeight)
 
         #Button Grid Layout (button rows 1-3)
         buttonGrid = QGridLayout()
@@ -271,9 +272,6 @@ class Calculator(QMainWindow):
         return True
 
 
-
-       
-    
 def main():
     app = QApplication(sys.argv)
     ##Setting up basic window/app
