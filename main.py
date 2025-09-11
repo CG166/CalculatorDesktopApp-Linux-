@@ -1,8 +1,8 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QLabel, QWidget,
-                             QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QSizePolicy, QStackedLayout, QLineEdit)
+                             QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QLineEdit)
 from PyQt5.QtGui import QIcon
-from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt,  QSize
 
 import functions
@@ -223,12 +223,12 @@ class Calculator(QMainWindow):
 
     def calculate(self):
         self.tokenize()
-        print(f"State of queue before it is input into the evaluation function is {self.queue}")
+        #print(f"State of queue before it is input into the evaluation function is {self.queue}")
         self.displayText = functions.evaluate(self.queue)
         self.displayBox.setText(self.displayText)
 
     def tokenize(self):
-        print(f"Display text before tokenization {self.displayText}")
+        #print(f"Display text before tokenization {self.displayText}")
         token = ""
         textEnd = len(self.displayText) - 1
         for i, c in enumerate(self.displayText):
@@ -236,13 +236,13 @@ class Calculator(QMainWindow):
                 token += c
             elif self.isOp(c):
                 self.queue.append(float(token))
-                print(f"Number {token} appended to list. State of queue is {self.queue}")
+                #print(f"Number {token} appended to list. State of queue is {self.queue}")
                 self.queue.append(c)
-                print(f"Operation {c} appended to list. State of queue is {self.queue}")
+                #print(f"Operation {c} appended to list. State of queue is {self.queue}")
                 token = ""
             elif not self.isOp(c) and i == textEnd:
                 token += c
-                print(f"Last number {token} to be appended to list {self.queue}")
+                #print(f"Last number {token} to be appended to list {self.queue}")
                 self.queue.append(float(token))
 
     def isOp(self, c):
@@ -263,7 +263,7 @@ class Calculator(QMainWindow):
                 break
             else:
                 token += c
-        print(f"The token being analyzed is {token}")
+        #print(f"The token being analyzed is {token}")
         #Check if the last token already has a period
         for c in token:
             if c == '.':
