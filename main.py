@@ -201,6 +201,8 @@ class Calculator(QMainWindow):
             pass
         elif c == '.' and last_char == '.':
             pass
+        elif c == '.' and self.isClear() == False:
+            pass
         elif self.isOp(c) and self.isOp(last_char):
             self.displayText = self.displayText[:-1]
             self.displayText  += c
@@ -248,7 +250,28 @@ class Calculator(QMainWindow):
             return True
         else:
             return False
-            
+
+    #This function checks if it is clear to add a decimal point(there is no previous decimal point
+    # so that the floats can be separated cleanly)
+    # Functions by checking to see if we run into an operator before we run into another decimal point when
+    # iterating through the existing text in reverse.  
+    def isClear(self):
+        #Retrieve the last number/token
+        token = ""
+        for c in reversed(self.displayText):
+            if self.isOp(c):
+                break
+            else:
+                token += c
+        print(f"The token being analyzed is {token}")
+        #Check if the last token already has a period
+        for c in token:
+            if c == '.':
+                return False
+        return True
+
+
+
        
     
 def main():
