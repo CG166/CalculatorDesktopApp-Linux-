@@ -6,7 +6,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt,  QSize
 
 import functions
-import resources_rc
+import rc_resources
 
 class Calculator(QMainWindow):
     def __init__(self):
