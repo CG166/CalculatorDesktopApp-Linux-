@@ -2,7 +2,7 @@
 ### This is a Calculator Desktop Application built for Linux (Ubuntu).  
 ## Resource Compilation  
 After every change to the resource file, recompile it using the following command:  
-'pyrcc5 resources.qrc -o resources_rc.py'  
+'pyrcc5 resources.qrc -o rc_resources.py'  
 ## Building the Executable  
 To create the desktop application executable, run:  
 'pyinstaller --noconfirm --onefile --windowed main.py'
