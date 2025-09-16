@@ -8,7 +8,8 @@ To create the desktop application executable, run:
 `pyinstaller --noconfirm --onefile --windowed main.py`  
 This will bundle the app into a standalone executable.  
 ## Installing the App (Debian Installer)
-1. Download the installer file: ***Calculator_1.0.deb***
+1. Download the installer file: [Calculator_1.0.deb](https://github.com/CG166/CalculatorDesktopApp-Linux-/blob/main/CalculatorDesktopApp%20.deb%20Installer/Calculator_1.0.deb)
+
 2. Install the application by:
    - **Option 1:** Double-click the .deb file and follow the installation instructions.
    - **Option 2:** Open the terminal and run the command:
