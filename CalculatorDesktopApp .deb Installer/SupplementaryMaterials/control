@@ -1,0 +1,9 @@
+Package: calculator
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.7)
+Maintainer: Cindy Garcia  <cgarcia.software.tech@gmail.com>
+Description: Simple PyQt Calculator application
+ A minimal calculator app built with PyQt, packaged as a Debian installer.

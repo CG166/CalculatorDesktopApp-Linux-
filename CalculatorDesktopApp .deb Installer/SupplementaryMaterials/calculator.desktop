@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Calculator
+Comment=Simple PyQt Calculator
+Exec=/usr/local/bin/calculator
+Icon=/usr/share/icons/icon.png
+Terminal=false
+Type=Application
+Categories=Utility;
