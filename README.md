@@ -5,7 +5,7 @@ After every change to the resource file, recompile it using the following comman
 `pyrcc5 resources.qrc -o rc_resources.py`  
 ## Building the Executable  
 To create the desktop application executable, run:  
-`pyinstaller --noconfirm --onefile --windowed main.py`
+`pyinstaller --noconfirm --onefile --windowed main.py`  
 This will bundle the app into a standalone executable.  
 ## Installing the App (Debian Installer)
 1. Download the installer file: ***Calculator_1.0.deb***
