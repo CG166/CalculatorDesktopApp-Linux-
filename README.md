@@ -1,17 +1,18 @@
-
-*This will be a calculator desktop app for Linux(Ubuntu)* 
-Recompile resource collection file after every resource change
-- **pyrcc5 resources.qrc -o resources_rc.py**
-  
-*This will be a calculator desktop app for Linux(Ubuntu)*
-- Recompile resource collection file after every resource change
---pyrcc5 resources.qrc -o resources_rc.py 
-
-Create the desktop application executable with the command: 
-- **pyinstaller --noconfirm --onefile --windowed main.py**
-
- Run Debian Installer to install Calculator Desktop App:
- - Download Calculator_1.0.deb
- - Install by clicking on the file and running it or by using the command **sudo dpkg -i Calculator_1.0.deb**
-
-Remove application by running the command **sudo dpkg -r calculator**
+# Calculator Desktop App for Linux (Ubuntu)
+### This is a Calculator Desktop Application built for Linux (Ubuntu).  
+## Resource Compilation  
+After every change to the resource file, recompile it using the following command:  
+'pyrcc5 resources.qrc -o resources_rc.py'  
+## Building the Executable  
+To create the desktop application executable, run:  
+'pyinstaller --noconfirm --onefile --windowed main.py'
+This will bundle the app into a standalone executable.  
+## Installing the App (Debian Installer)
+1. Download the installer file: ***Calculator_1.0.deb***
+2. Install the application by:
+   - **Option 1:** Double-click the .deb file and follow the installation instructions.
+   - **Option 2:** Open the terminal and run the command:
+     'sudo dpkg -i Calculator_1.0.deb'
+## Uninstalling the App
+To remove the calculator application, run the command:  
+'sudo dpkg -r calculator'
